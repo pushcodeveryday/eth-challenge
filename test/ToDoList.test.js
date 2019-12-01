@@ -6,7 +6,6 @@ contract("ToDoList", (accounts) => {
     })
 
     it("contract should deploy successfully", async () => {
-
         assert.notEqual(this.testInstance, null);
     })
 
@@ -23,18 +22,15 @@ contract("ToDoList", (accounts) => {
     })
 
     it("taks[] should return an empty array", async () => {
-
         const itemCount = await this.testInstance.itemCounter();
         assert.equal(itemCount.toNumber(), 0);
     })
 
     it("createItem() should reflect in items[]", async () => {
-
         const createItemResult = await this.testInstance.createItem("0x0000000000000000",
             "0x0000000000000000000000000000000000000000000000000000000000000000");
         const itemCount = await this.testInstance.itemCounter();
         const item = await this.testInstance.items(itemCount - 1);
-
         assert.equal(item.id.toNumber(), itemCount.toNumber() - 1);
         assert.equal(item.ItemName, "0x0000000000000000");
         assert.equal(item.ItemDetails,
@@ -44,7 +40,6 @@ contract("ToDoList", (accounts) => {
     })
 
     it("createItem() should create a item and return the same values", async () => {
-
         const createItemResult = await this.testInstance.createItem("0x1000000000000000",
             "0x0000000000000000000000000000000000000000000000000000000000000000");
         const itemCount = await this.testInstance.itemCounter();
@@ -59,7 +54,6 @@ contract("ToDoList", (accounts) => {
     })
 
     it("createItem() should emit event", async () => {
-
         const createItemResult = await this.testInstance.createItem("0x2000000000000000",
             "0x0000000000000000000000000000000000000000000000000000000000000000");
         const event = createItemResult.logs[0].args;
@@ -67,6 +61,21 @@ contract("ToDoList", (accounts) => {
         assert.equal(event.itemName, "0x2000000000000000");
         assert.equal(event.itemDetails,
             "0x0000000000000000000000000000000000000000000000000000000000000000");
+    })
+
+    it("String operations", async () => {
+
+        const itemName = "test";
+        const itemDetails = "This is a test";
+        const createItemResult = await this.testInstance.createItem(web3.utils.fromAscii(itemName),web3.utils.fromAscii(itemDetails));
+        const itemCount = await this.testInstance.itemCounter();
+        const item = await this.testInstance.items(itemCount - 1);
+
+        assert.equal(item.id.toNumber(), itemCount.toNumber() - 1);
+        assert.equal(web3.utils.hexToUtf8(item.ItemName), itemName);
+        assert.equal(web3.utils.hexToUtf8(item.ItemDetails),itemDetails);
+        assert.equal(item.iscomplete, false);
+        assert.equal(itemCount.toNumber(), 4);
     })
 
     it("Mark item as complete", async () => {

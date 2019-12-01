@@ -1,16 +1,20 @@
 pragma solidity ^0.5.0;
 
-/* 
+/*
 @author Ayush Kaul
-@title ToDoList 
+@title ToDoList
 */
 contract ToDoList {
     address public owner;
-    uint public itemCounter;    // to store the current item count
+
+    // to store the current item count
+    uint public itemCounter;
 
     struct Item {
         uint id;
-        bytes8 ItemName;    // byte saves memory as compared to string
+
+        // byte saves memory as compared to string
+        bytes8 ItemName;
         bytes32 ItemDetails;
         bool iscomplete;
     }
@@ -31,8 +35,10 @@ contract ToDoList {
         );
 
     constructor() public {
+
+        // initialize the item count to 0, when contract deploys
+        itemCounter = 0;
         owner = msg.sender;
-        itemCounter = 0;    // initialize the item count to 0, when contract deploys
     }
 
     // used to restrict the access only to the contract owner
@@ -45,7 +51,6 @@ contract ToDoList {
     @param _itemDetails stores the description about the list item
     @dev stores the item in the mapping "items" */
     function createItem (bytes8 _itemName, bytes32 _itemDetails) public {
-
         items[itemCounter] = Item(itemCounter, _itemName, _itemDetails, false);
         emit ItemCreated(itemCounter, _itemName, _itemDetails);
         itemCounter++;
