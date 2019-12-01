@@ -1,0 +1,27 @@
+{
+  "name": "eth-challenge",
+  "version": "1.0.0",
+  "description": "So you want to work with Flex Dapps? Well first things first, let's see how you solve problems.",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flex-dapps/eth-challenge.git"
+  },
+  "author": "ayush ",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/flex-dapps/eth-challenge/issues"
+  },
+  "homepage": "https://github.com/flex-dapps/eth-challenge#readme"
+}
